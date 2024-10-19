@@ -1,6 +1,9 @@
 ﻿// Write required code.
 
 // Data - do not change it in code!
+using System.Linq.Expressions;
+using System.Xml.Xsl;
+
 string[] names = {
     "Mickey Mouse", "Minnie Mouse", "Donald Duck", "Goofy", "Pluto", "Daisy Duck", "Simba", "Nala", 
     "Timon", "Pumbaa", "Mufasa", "Ariel", "Flounder", "Sebastian", "Ursula", "Belle", "Beast", "Gaston", 
@@ -12,11 +15,32 @@ string[] names = {
 // Print all array elements, *perLine* elements per one line
 // After all elements except last one should be ", " - also on the end of lines.
 // After last element should be ".".
-void PrintGroups(string[] t, int perLine)
+void PrintGroups(string[] t, int perLine, string strDelimiter = ",", bool blnEndDelimiter = true, bool blnEndDot = true)
 {
+    
+    for (int i = 0; i < t.Length; i++)
+    {
+        Console.Write(t[i]);
+        if (t.Length - i == 1 && blnEndDot)
+        {
+            Console.Write(".");
+        }
+        else if ((i+1) % perLine == 0)
+        {
+            if (blnEndDelimiter)
+            {
+                Console.Write(strDelimiter + "\n");
+            }
+            else Console.Write("\n");
+        }
+        else Console.Write(strDelimiter);
+        
 
-    // Write required code.
 
+            
+
+    }
+        
 }
 
 
@@ -27,9 +51,20 @@ void PrintGroups(string[] t, int perLine)
 
 void PrintColumns(string[] t, int perLine, int width)
 {
-
+    var names = new string[t.Length];
+    for(int i = 0; i < t.Length; i++)
+    {
+        if (t[i].Length >= width)
+        {
+            names[i] = t[i].Substring(0, width);
+        }
+        else
+        {
+            names[i] = t[i].PadRight(width);
+        }
+    }
     // Write required code.
-
+    PrintGroups(names, perLine, "| ",false, false);
 }
 
 
